@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JavaScript for Forms</title>
+	<script type="text/javascript">
+	
+		function write_name() {
+			var welcome_parra = document.getElementById('welcome');
+			var name = document.getElementById('name');
+
+			welcome_parra.innerHTML = "Welcome " + name.value
+		}
+
+
+		function check_info (){
+			var username = document.getElementById('username').value;
+			var password = document.getElementById('password').value;
+
+			if(username=="" || password==""){
+				alert('Please fill in all fields.');
+				return false;
+			}
+
+			else{
+				return true;
+			}
+		}
+	</script>
+</head>
+<body>
+	<p id="welcome">	
+	</p>
+	<form>
+		What is your name:&nbsp;<input type="text" id="name"> 
+		<input type="button" value="Done" onclick="write_name();">
+	</form>
+
+	<br><br><br>
+    
+    <form action="submission.html" method="post" onsubmit="return check_info();">
+      Username: <input type="text" name="username" id="username">
+      Password: <input type="password" name="password" id="password">
+      <input type="submit" value="Login">
+    </form>   
+</body>
+</html>
