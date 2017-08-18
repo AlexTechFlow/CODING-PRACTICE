@@ -31,7 +31,41 @@
         "enable": false,
         "speed":30
       }
-	}
-
-
+    },
+    "line_linked":{
+      "enable": true,
+      "distance": 120,
+      "color":"#fff",
+      "width":1
+    },
+    "move":{
+      "enable":true,
+      "speed":2,
+      "direction":"none",
+      "straight":false
+    }
+  },
+  "interactivity":{
+    "events":{
+      "onhover":{
+        "enable":true,
+        "mode":"repulse"
+      },
+      "onclick":{
+        "enable": true,
+        "mode":"push"
+      }
+    },
+    "modes":{
+      "repulse":{
+        "distance":50,
+        "duration":0.4
+      },
+      "bubble":{
+        "distance":100,
+        "size":10
+      }
+    }
+  }
+}
 
