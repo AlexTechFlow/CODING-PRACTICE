@@ -43,6 +43,7 @@
  <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.min.js"></script>
 
  <script>
+  $(document).ready(function() {
         
         // your answer would go here
         //Step 1 - Hover and change color to this and all to its left:
@@ -52,17 +53,21 @@
 // hover event
 // raised when the user moves their mouse over the item
 
+// Example:
+// $('#some-button').click(function() {
+  // code here
+// });
+
 var thisObject = $(this);
 
 
-        $('.rating-circle').hover(function() {
-
-            $('.rating-circle').prevAll().addClass('.highlight');
-
-        });
+$('.rating.circle').click(function() {
+     .addClass('.highlight');
+ });
 
 
 
+});
  </script>
 </body>
 </html>
