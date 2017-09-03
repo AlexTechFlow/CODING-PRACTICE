@@ -54,7 +54,6 @@ nav {
 	font-size: 1.5em;
 	line-height: 80%;
 	margin: .5em 0 0 1em;
-
 }
 
 #menu-icon {
@@ -93,8 +92,6 @@ nav ul li a:hover {
 
 
 
-
-
 /*---Banner Image---*/
 .banner {
 	font-family: 'Montserrat', sans-serif;
@@ -130,11 +127,6 @@ h1.dark-heading {
 	line-height: 10%;
 }
 
-.portfolio-section {
-	background-color: #252827;
-	color: #C2DED5;
-
-}
 
 h2 {
 	font-size: 250%;
@@ -163,4 +155,68 @@ span.intro-orange {
 
 span.intro-dark {
 	color: #151515;
+}
+
+
+/*---Begin One-third Column Section--*/
+
+.one-third-wrapper {
+	height: 20em;
+	width: 80%;
+	margin: 0 auto;
+	font-weight: 400;
+	padding-top: 5%;
+}
+.one-third {
+	width: 30%;
+	float: left;
+	text-align: left;
+	height: 300px;
+	padding: 0 1% 0 2%;
+}
+
+.one-third h3 {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 170%;
+	line-height: 100%;
+	text-transform: uppercase;
+}
+
+.one-third p {
+		font-size: 0.8em;
+		line-height: 190%;
+}
+
+.one-third i {
+	color: #cecece;
+	font-size: 2.9em;
+}
+
+
+/*---Begin Portfolio---*/
+
+.portfolio-section {
+	background-color: #252827;
+	color: #C2DED5;
+
+}
+
+
+.portfolio-section h2 {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 170%;
+	line-height: 100%;
+	text-transform: uppercase;
+	padding: 5%;
+	/*-----------------------------------------------------------------FIX BG SQUARE---*/
+	background-image: url(img/folio-sqr.png);
+	background-repeat: no-repeat;
+	background-position: 44% 40% ;
+}
+
+.portfolio-section h3 {
+	font-family: 'Montserrat', sans-serif; /*-----------------Replace to Muller Black (lighter version) --*/
+	font-size: 120%;
+	line-height: 100%;
+	text-transform: uppercase;
 }
