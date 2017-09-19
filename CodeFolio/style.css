@@ -1,2 +1,452 @@
-@import 'https://fonts.googleapis.com/css?family=Alegreya+Sans';
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400|Montserrat:900');
 
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary{display:block;}audio,canvas,video{display:inline-block;}audio:not([controls]){display:none;height:0;}[hidden]{display:none;}html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}a:focus{outline:thin dotted;}a:active,a:hover{outline:0;}h1{font-size:2em;}abbr[title]{border-bottom:1px dotted;}b,strong{font-weight:700;}dfn{font-style:italic;}mark{background:#ff0;color:#000;}code,kbd,pre,samp{font-family:monospace, serif;font-size:1em;}pre{white-space:pre-wrap;word-wrap:break-word;}q{quotes:\201C \201D \2018 \2019;}small{font-size:80%;}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}sup{top:-.5em;}sub{bottom:-.25em;}img{border:0;}svg:not(:root){overflow:hidden;}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em;}button,input,select,textarea{font-family:inherit;font-size:100%;margin:0;}button,input{line-height:normal;}button,html input[type=button],/* 1 */
+input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}button[disabled],input[disabled]{cursor:default;}input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0;}input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none;}textarea{overflow:auto;vertical-align:top;}table{border-collapse:collapse;border-spacing:0;}body,figure{margin:0;}legend,button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
+.clearfix:after {visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+
+* {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #fff;
+	color: #252525;
+	font-family: 'Lato', sans-serif;
+	line-height: 160%;
+	margin: 0;
+
+}
+
+header {
+	border: 0px solid red;
+
+    background-color: #acc8b3; 
+	width: 100%;
+	height: 600px;
+
+	margin: 0 auto;
+
+	background: url('img/banner-bg.png') no-repeat;
+	background-size: cover;
+
+	text-transform: uppercase;
+}
+
+
+/*------------------------------------------------Navigation--------------------------------*/
+
+.header-inner-wrapper {
+
+}
+
+nav {
+	border: 1px solid white;
+	background-color: #fff;
+	height: 4em;
+	width: 80%;
+	margin: 0 auto;
+	color: #151515;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 900;
+}
+
+.logo-text {
+	float: left;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 900;
+	font-size: 1.5em;
+	line-height: 80%;
+	margin: .5em 0 0 1em;
+}
+
+#menu-icon {
+	display: hidden;
+	width: 40px;
+	height: 40px;
+	background: url(img/nav.png) center;
+}
+
+a:hover#menu-icon {
+	border-radius: 4px 4px 0 0;
+}
+
+ul {
+	list-style-type: none;
+	float: right;
+}
+
+nav ul li {
+	font-size: 75%;
+	display: inline-block;
+	padding: 0 15px 0 0;
+	margin: 2em 0;
+}
+
+nav ul li a {
+    color: #151515;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 900;
+	text-decoration: none;
+}
+
+nav ul li a:hover {
+	color: #ff4200;
+}
+
+
+
+/*--------------------------------------------------Banner Image-------------------------------------*/
+.banner {
+	font-family: 'Montserrat', sans-serif;
+}
+
+.banner-inner {
+}
+
+h1 {
+		color: #151515;
+		font-family: 'Montserrat', sans-serif;
+		font-size: 600%;
+		font-weight: 900;
+		text-align: center;
+		line-height: 80%;
+		/* border:1px solid white; */
+
+}
+
+h1.light-heading {
+	color: #fff;
+	padding-top: 2em;
+
+}
+
+h1.dark-heading {
+	color: #151515;
+}
+
+.banner-heading {
+	color: #ff4200;
+	font-size: 132%;
+	line-height: 10%;
+
+}
+
+
+h2 {
+	font-size: 250%;
+	font-weight: 700;
+	text-align: center;
+	padding-top: 2%;
+}
+
+h2.banner-heading {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 150%;
+	font-weight: 900;
+	text-align: center;
+	line-height: 80%;
+}
+
+h2.white-heading {
+	color: #fff;
+}
+
+h2.dark-heading {
+	color: #151515;
+}
+
+.intro-h3 {
+	font-size: 300%;
+	line-height: 155%;
+	padding: 5% 0;
+}
+
+span.intro-orange {
+	color: #FF4200;
+}
+
+span.intro-dark {
+	color: #151515;
+}
+
+
+
+/*---------------------------------------------Begin One-third Column Section----------------------------------*/
+
+.one-third-wrapper {
+	height: 20em;
+	width: 80%;
+	margin: 0 auto;
+	font-weight: 400;
+	padding-top: 5%;
+}
+.one-third {
+	width: 30%;
+	float: left;
+	text-align: left;
+	height: 300px;
+	padding: 0 1% 0 2%;
+}
+
+.one-third h3 {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 170%;
+	line-height: 100%;
+	text-transform: uppercase;
+}
+
+.one-third p {
+		font-size: 0.8em;
+		line-height: 190%;
+}
+
+.one-third i {
+	color: #cecece;
+	font-size: 2.9em;
+}
+
+
+/*-----------------------------------------Begin Portfolio------------------------------------------*/
+
+.portfolio-section {
+	background-color: #252827;
+	color: #C2DED5;
+}
+
+.inner-wrapper {
+	float: right;
+	margin: 0 auto;
+
+}
+
+#work-sample1 img {
+	float: left;
+	width: 50%;
+	padding: 2%;
+}
+
+#work-sample-description {
+	float: right;
+	width: 45%;
+	padding: 0;
+	margin: 0;
+}
+
+article {
+	float: left;
+	width: 50%;
+	height: auto; 
+}
+
+.inner-wrapper2 {
+
+}
+
+.portfolio-section h2 {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 170%;
+	line-height: 100%;
+	text-transform: uppercase;
+	padding: 5%;
+	/*-----------------------------------------------------------------FIX BG SQUARE---*/
+	background-image: url(img/folio-sqr.png);
+	background-repeat: no-repeat;
+	background-position: 44% 40% ;
+}
+
+.portfolio-section h3 {
+	font-family: 'Montserrat', sans-serif; /*-----------------Replace to Muller Black (lighter version) --*/
+	font-size: 120%;
+	line-height: 100%;
+	text-transform: uppercase;
+}
+
+
+/*------------------------------------------------- CONTACT -----------------------------------------------*/
+
+.left-contact-text {
+	float: left;
+	width: 30%;
+}
+
+.contact-heading {
+	color: #FFF;
+	font-size: 3em;
+	text-align: center;
+	display: block;
+	margin-top: 3%;
+}
+
+
+/*----------------------------------------Contact Form-----------------------------*/
+#contact-section {
+	background-color: #B9DAC2;
+	width: 100%;
+
+}
+
+.contact {
+	width: 80%;
+	height: 100%;
+	margin: 0 auto;
+	border: 1px solid red;
+	background-color: #B9DAC2;
+
+}
+
+/*--These 2 blocks are alighned inside the .contact section, which is centered above-----*/
+.contactform-container {
+	float: left;
+	width: 50%;
+    background-color: #B9DAC2;
+    border-radius: 5px;
+    padding: 0px;
+}
+
+.left-contact-text {
+	float: left;
+	width: 50%;
+	border: 1px solid green;
+}
+
+.left-contact-text p {
+	padding-right: 2%;
+}
+/*--Two blocks end---*/
+
+
+.contactme-heading {
+    color: #FF9F00;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+	font-size: 140%;
+	font-weight: 500;
+	line-height: 100%;
+	padding: 2%;
+
+}
+
+/*-----------Contact Forms Begins-------*/
+form {
+	/* background-color: transparent; */
+	width: 100%;
+	margin: 0;
+	border: 1px solid black;
+}
+
+form input, select, textarea {
+	 background-color: transparent; 
+	 font-family: 'Hind', sans-serif;
+}
+
+input[type=text], select, textarea {
+    width: 100%; 
+    padding: 12px;  
+    border: 1px solid white; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    margin-top: 6px; 
+    margin-bottom: 16px; 
+    color: white;
+}
+
+input[type=submit] {
+    /* background-color: transparent; */
+    color: #252827;
+    background-color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    float: right;
+    width: 40%;
+}
+
+
+
+input[type=submit]:hover {
+    
+}
+/*-----------Contact Form Ends-------------*/
+
+
+
+/*--------Footer--------*/
+footer {
+	color: #FF9F00;
+    background-color: #252827;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+	font-size: 50%;
+	line-height: 100%;
+	height: 5em;
+	padding: 2% 0 2% 0;
+}
+
+.footertext-wrapper {
+	width: 80%;
+	margin: 0 auto;
+	height: 3em;
+}
+
+footer p {
+	width: 25%;
+	float: left;
+}
+
+footer p.rightalign {
+	float: right;
+	text-align: right;
+}
+
+/*--------Footer Ends--------*/
+
+/*-------------------------------------------------CONTACT ENDs-------------------------------------------*/
+
+
+
+
+
+
+
+
+/* -------------------------------------MEDIA QUERIES BEGIN-----------------------------------------*/
+
+/*---RESPONSIVE CONTACT FORM---*/
+@media only screen and (max-width: 580px) {
+	#form-div{
+		left: 3%;
+		margin-right: 3%;
+		width: 88%;
+		margin-left: 0;
+		padding-left: 3%;
+		padding-right: 3%;
+	}
+
+	.header-intro-text h1 {
+		font-size: 1.4em;
+	}
+
+	.header-intro-text h2 {
+		font-size: 1em;
+	}
+
+	.button {
+		width: 20%;
+		height: 5%;
+		font-size: 0.7em;
+		border: 1px solid #fff;
+	    display: block;
+	    margin: 0 auto;
+	    padding: 1%;
+	    color: white;
+	    text-align: center;
+	}
+}
+
+
+
+/*---------------MEDIA QUERIES END-------------*/
