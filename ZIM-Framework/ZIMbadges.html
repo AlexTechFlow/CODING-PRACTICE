@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ZIM ALIEN DETECTOR</title>
+
+<!-- Welcome to ZIM at http://zimjs.com - Code Interactive Media Pizzazz! 	        -->
+<!-- ZIM runs on the HTML Canvas powered by JavaScript and CreateJS http://createjs.com -->
+<!-- Founded by Inventor Dan Zen - http://danzen.com - Canadian New Media Award Winner 	-->
+<!-- ZIM is free to use. You can donate to help improve ZIM at http://zimjs.com/donate 	-->
+
+<script src="https://d309knd7es5f10.cloudfront.net/createjs.min.js"></script>
+<script>
+	var zon = true; // set to false to turn off console messages from zim
+	var zns = false; // set to true to require zim namespace - eg. new zim.Frame()
+</script>
+<script src="https://d309knd7es5f10.cloudfront.net/zim_6.2.2.js"></script>
+<!-- use zimjs.com/code/distill for minified individual functions! -->
+
+<style>
+	body {background-color:#444;}
+</style>
+
+<script>
+var scaling = "fit"; // this will resize to fit inside the screen dimensions
+var width = 1024;
+var height = 768;
+var color = "#444";
+var frame = new zim.Frame(scaling, width, height, color);
+frame.on("ready", function() {
+	zog("ready from ZIM Frame"); // logs in console (F12 - choose console)
+
+	var stage = frame.stage;
+	var stageW = frame.width;
+	var stageH = frame.height;
+
+	var backing = new zim.Rectangle({
+		width:stageW, 
+		height:stageH-200,
+		color:"#000", 
+		corner:50
+	});
+
+	backing.center(stage);
+
+	var tabs = new zim.Tabs({
+		width:800, 
+		height:50, 
+		tabs:["CONTROLS", "ANIMATION", "SOUND", "PICTURE"],
+		corner:20,
+		spacing:4
+    });
+
+    tabs.center(stage, 0).mov(0, -(backing.height+tabs.height)/2);
+
+
+    var label = new zim.Label({
+    	text:"ALIEN DETECTOR",
+    	outlineColor:frame.pink,
+    	outlineWidth:3
+    });
+    
+    label.addTo(stage).pos(120,150).ske(15);
+
+
+
+    //// CIRCLE AND SLIDER - 1st COPY ////
+
+	var circle = new zim.Circle(100, frame.green)
+	       .center(stage)
+	       .mov(250)
+	       .drag();
+
+	var slider = new zim.Slider(50, 500);
+
+	slider.center(stage);
+	slider.mov(-250, -50);  
+
+	slider.on("change", function(){
+		circle.widthOnly = slider.currentValue;
+		stage.update();
+
+	});    
+
+	slider.currentValue = zim.rand(slider.min, slider.max); 
+
+	circle.widthOnly = slider.currentValue;
+
+
+	//// CIRCLE AND SLIDER - 2nd COPY ////
+
+	var circle2 = new zim.Circle(100, frame.green)
+	       .center(stage)
+	       .mov(250)
+	       .drag();
+
+	var slider2 = new zim.Slider(50, 500);
+
+	slider2.center(stage);
+	slider2.mov(-250, 50);  
+
+	slider2.on("change", function(){
+		circle2.widthOnly = slider2.currentValue;
+		stage.update();
+
+	});    
+
+	slider2.currentValue = zim.rand(slider2.min, slider2.max); 
+
+	circle2.widthOnly = slider2.currentValue;
+
+
+
+	var colors =  [frame.pink, frame.orange, frame.green, frame.yellow, frame.brown, frame.blue];
+
+	var colorPicker = new zim.ColorPicker({
+		    width:400,
+		    colors: colors,
+		    greyPicker:false,
+		    buttonBar:false,
+		    spacing:5,
+		    cols:colors.length,
+		    backingColor:frame.color,
+		    shadowBlur:0
+
+	});
+
+	colorPicker.center(stage)
+	       .mov(-230, 333);
+
+	colorPicker.selectedColor = circle.color;
+	
+
+	colorPicker.on("change", function() {
+		circle.color = colorPicker.selectedColor;
+		stage.update();
+	});     
+
+
+
+	var colorPicker2 =  colorPicker.clone();
+	var colorPicker2 = new zim.ColorPicker({
+		    width:400,
+		    colors: colors,
+		    greyPicker:false,
+		    buttonBar:false,
+		    spacing:5,
+		    cols:colors.length,
+		    backingColor:frame.color,
+		    shadowBlur:0
+
+	});
+
+	colorPicker2.center(stage)
+	       .mov(230, 333);
+
+	colorPicker2.selectedColor = circle.color;
+	
+
+	colorPicker2.on("change", function() {
+		circle.color = colorPicker2.selectedColor;
+		stage.update();
+	});     
+
+    
+  /// EARNED BADGE 3 ///
+
+
+	stage.update(); // this is needed to show any changes
+
+}); // end of ready
+
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+</head>
+<body>
+<!-- canvas with id="myCanvas" is made by zim Frame -->
+</body>
+</html>
