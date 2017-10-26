@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ZIM Particle Emitter for HTML Canvas, JavaScript, CreateJS</title>
+
+<!-- Welcome to ZIM at http://zimjs.com - Code Interactive Media Pizzazz! 				-->
+<!-- ZIM runs on the HTML Canvas powered by JavaScript and CreateJS http://createjs.com -->
+<!-- Founded by Inventor Dan Zen - http://danzen.com - Canadian New Media Award Winner 	-->
+<!-- ZIM is free to use. You can donate to help improve ZIM at http://zimjs.com/donate 	-->
+
+<!-- as of ZIM 4.3.0 load createjs namespace first -->
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script>var zon = true; // true for comments from zim code</script>
+<script src="http://d309knd7es5f10.cloudfront.net/zim_5.js"></script>
+<script src="http://d309knd7es5f10.cloudfront.net/game_1.0.2.js"></script>
+<!-- use zimjs.com/code/distill for minified individual functions! -->
+
+<style>
+	body {background-color:#000;}
+</style>
+
+<script>
+
+// SCALING OPTIONS
+// scaling can have values as follows with full being the default
+// "fit"	sets canvas and stage to dimensions and scales to fit inside window size
+// "outside"	sets canvas and stage to dimensions and scales to fit outside window size
+// "full"	sets stage to window size with no scaling
+// "tagID"	add canvas to HTML tag of ID - set to dimensions if provided - no scaling
+
+var scaling = "fit"; // fit scales to fit the browser window while keeping the aspect ratio
+var width = 1024; // can go higher...
+var height = 768;
+var frame = new zim.Frame(scaling, width, height); // see docs for more options and info
+frame.on("ready", function() {
+	zog("ready from ZIM Frame");
+
+	var stage = frame.stage;
+	var stageW = frame.width;
+	var stageH = frame.height;
+	frame.color = frame.grey;
+
+	// eg.2 use a sink to attract the particles
+var sink = new zim.Circle(10, frame.pink).centerReg(stage).alp(0);
+// make one of three types of particles and randomize the colors
+var particles = new zim.Emitter({
+   obj:[
+      new zim.Circle(20,null,frame.darker,2),
+      new zim.Rectangle(30,30,null,frame.darker,2),
+      new zim.Triangle(40,40,40,null,frame.darker,2)
+   ],
+   random:{color:[frame.blue, frame.green, frame.pink, frame.yellow, frame.orange]},
+   interval:20, // default
+   life:5000,
+   decayTime:1000, // default
+   sink:sink,
+   sinkForce:.5,
+   gravity:0,
+   force:1,
+   cache:zim.mobile(), // default
+})
+   .centerReg(stage)
+   .sca(2);
+
+	stage.update(); // update the stage to see any changes
+
+}); // end of ready
+</script>
+</head>
+
+<body>
+<!-- canvas with id="myCanvas" is made by zim Frame -->
+</body>
+</html>

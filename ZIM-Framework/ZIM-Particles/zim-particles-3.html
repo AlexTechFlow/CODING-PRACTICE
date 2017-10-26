@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ZIM Fireworks - Particle Emitter for HTML Canvas, JavaScript, CreateJS</title>
+
+<!-- Welcome to ZIM at http://zimjs.com - Code Interactive Media Pizzazz! 				-->
+<!-- ZIM runs on the HTML Canvas powered by JavaScript and CreateJS http://createjs.com -->
+<!-- Founded by Inventor Dan Zen - http://danzen.com - Canadian New Media Award Winner 	-->
+<!-- ZIM is free to use. You can donate to help improve ZIM at http://zimjs.com/donate 	-->
+
+<!-- as of ZIM 4.3.0 load createjs namespace first -->
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script>var zon = true; // true for comments from zim code</script>
+<script src="http://d309knd7es5f10.cloudfront.net/zim_5.js"></script>
+<script src="http://d309knd7es5f10.cloudfront.net/game_1.0.2.js"></script>
+<!-- use zimjs.com/code/distill for minified individual functions! -->
+
+<style>
+	body {background-color:#000;}
+</style>
+
+<script>
+
+// SCALING OPTIONS
+// scaling can have values as follows with full being the default
+// "fit"	sets canvas and stage to dimensions and scales to fit inside window size
+// "outside"	sets canvas and stage to dimensions and scales to fit outside window size
+// "full"	sets stage to window size with no scaling
+// "tagID"	add canvas to HTML tag of ID - set to dimensions if provided - no scaling
+
+var scaling = "fit"; // fit scales to fit the browser window while keeping the aspect ratio
+var width = 1024; // can go higher...
+var height = 768;
+var frame = new zim.Frame(scaling, width, height); // see docs for more options and info
+frame.on("ready", function() {
+	zog("ready from ZIM Frame");
+
+	var stage = frame.stage;
+	var stageW = frame.width;
+	var stageH = frame.height;
+	frame.color = frame.darker;
+
+	var meter = new zim.Meter(stage);
+
+	// We will make a zim.Emitter shoot a streamer
+	// A particle is said to decay when it stops moving
+	// A particle is said to fizz when the life time is up and it disappears
+	// We will capture a decayed event to then set an explosion
+	// The explosion is another zim.Emitter that we place at the streamer particle's position
+	// We then clone these so that we can run two fireworks at the same time
+	// Don't go crazy!  Watch out for performance...
+
+	// make a zim.Emitter() to emit the streamer for the firework
+	var shoot = new zim.Emitter({
+
+		// Here we specify the object to emit (the Emitter clones the object)
+		// We can pass in a single object or any ZIM VEE value from which each particle will be picked
+		// ZIM VEE values are as follows:
+		// 1. an Array of values to pick from - eg. ["red", "green", "blue"]
+		// 2. a Function that returns a value - eg. function(){return Date.now();}
+		// 3. a ZIM RAND object literal - eg. {min:10, max:20, integer:true, negative:true} max is required (not applicable for the obj parameter)
+		// 4. any combination of the above - eg. ["red", function(){x>100?["green", "blue"]:"yellow"}] zik is recursive
+		// 5. a single value such as a Number, String, zim.Rectangle(), etc. this just passes through unchanged (like we have here)
+		// the emitter will use zik() to pick for each particle it emits
+		obj:new zim.Circle(2,null,"black",1),
+
+		// adjust properties randomly for each particle
+		// the values for the properties can be any ZIM VEE value
+		// can also use this to set a property of a cloned emitter - just put the value you want
+		// for example: random:{x:300} would set the x of all the particles to 300
+		// see also horizontal and vertical parameters for random positioning...
+		random:{color:[frame.blue, frame.green, frame.pink, frame.yellow, frame.orange]},
+
+		// trace will make the particle repeat itself as it travels
+		// width and height are important as this specifies the cache dimension for tracing
+		// traceShift will adjust the position of the cache rectangle
+		// The particles start in the middle of the width and height
+		// unless the horizontal or vertical paramter is true - which it is not in this case
+		trace:true,
+		traceFadeTime:800,
+		width:stageW,
+		height:stageH,
+		traceShiftY:-stageH/2,
+
+		// turn on events because we need to know when the particle has decayed
+		// so that we can position an explosion at the particle position and explode it!
+		events:true,
+
+		// angle 0 is along the positive x axis and is positive going clockwise
+		minAngle:-90-15,
+		maxAngle:-90+15,
+
+		// we are passing in a RAND object which is recived by zik to randomly pick an interval
+		// The zik options are as follows:
+		// 1. an array of options
+		// 2. an object with min, max, integer, negative values (like we use here)
+		// 3. a function returning a value
+		// 4. a combination of the above as zik is fully recursive
+		// 5. a value that is not one of the above it will just use the value like a number
+		interval:{min:3000, max:5000},
+
+		// the decay usually start at the life-decayTime but here we move it forward
+		// this allows time for the streamer to show while the explosion starts
+		life:2000,
+		decayStart:1200,
+		decayTime:50,
+
+		// going to clone one and want that one paused for a delay so set this one paused
+		startPaused:true,
+
+		fade:true, // default
+		gravity:10, // default
+		minForce:9,
+		maxForce:11,
+		layers:"top", // default
+		cache:zim.mobile() // default
+	})
+		.centerReg(stage)
+		.mov(0,300)
+
+	// create a second streamer
+	// delay the second streamer and create an event for when the streamer has decayed
+	var shoot2 = shoot.clone().centerReg(stage).mov(0,300);
+	zim.timeout(2000, function() {shoot2.pause(false)}); // wait to start second
+	shoot2.on("decayed", explode); // decayed is when it stops moving - fizz is when it fades out
+	shoot2.on("emitted", playSounds);
+
+	// now that we have cloned the paused first streamer so the second streamer pauses,
+	// se the first streamer to unpaused and add the event to set the explosion
+	shoot.pause(false);
+	shoot.on("decayed", explode);
+	shoot.on("emitted", playSounds);
+
+	// did not bother to get sounds...
+	function playSounds() {
+		// frame.asset("streamer.mp3").play();
+	}
+
+	// this is the event function to add the explosion part of the fireworks
+	function explode(e) {
+
+		// here is where you would play an explode sound
+		// frame.asset("explode.mp3").play();
+
+		// we stored a rerence to the explosion for each shoot emitter on the emitter
+		var explosion = e.target.explosion;
+		explosion.addTo(stage, stage.numChildren-2); // bring to top under buttons
+
+		// put the exposion at the shoot particle - which is inside a moved container
+		// so use local to global or (shoot.x+e.particle.x, shoot.y+e.particle.y)
+		// NOTE: if the particle were a shape like one of the explosion particles
+		// then you would need to use e.particle.position.x (and y) as the shape itself is always at 0,0
+		// whereas the position.x (and y) is where the lineTo is currently positioned
+		var point = shoot.localToGlobal(e.particle.x, e.particle.y);
+		explosion.pos(point.x, point.y);
+
+		// now customize the explosion
+		// here it is more likely that 2 or 3 will be picked
+		explosion.num = zik([2,3,2,3,6]);
+
+		// here we pick from an array of random property objects
+		// these just have colors but it could have any property
+		// zik() is just done in this function to pick between the settings
+		// the object is then passed into the emitter
+		// and everytime the emitter emits, it picks a color from the array
+		// this could be an object instead: {alpha:{min:.2, max:.8}, rotation:[0, 180]} etc.
+		explosion.random = zik([
+			{color:[frame.blue, frame.green, frame.pink, frame.yellow, frame.orange]},
+			{color:[frame.blue, frame.pink]},
+			{color:[frame.yellow, frame.orange]},
+			{color:[frame.blue, frame.green]},
+			{color:["white"]},
+			{color:[frame.blue]},
+			{color:[frame.blue, frame.pink, frame.yellow]},
+		]);
+
+		// here we make some of the explosions the circle and some a shape with lines:
+		// note that we do not set this on the Emitter because then each explosion would have a mix of Circles and lines
+		// we instead call zik immediately to pick randomly the type of object we are going to use for the whole explosion
+		// the next explosion might be different
+		// we don't have to use zik() as we could use zim.shuffle(array)[0] etc. to get a random element
+		// or just a ternary - explosion.obj = zim.rand()>.5?circle:shape; or a conditional, etc.
+		explosion.obj = zik([
+			new zim.Circle(3,frame.pink,"black",1),
+			// In this case we are using a special shape format object with the following properties:
+			// {type:"shape", s:"white", ss:1, f:null, sd:[20, 10], offset:3}
+			// the parameters accept ZIM VEE values except the type and sd as it requires an array as a final value
+			// type:"shape" is required.  s is setStroke, ss is setStrokeStyle, sd and offset are setStrokeDash in CreateJS
+			// line thickness (ss) is currently not staying in the latest CDN CreateJS - this is working in the NEXT build
+			{type:"shape", s:explosion.random.color, ss:1}
+		]);
+
+		// spurt(number, time) - here we use time and pass in a function giving a result
+		// we could pass in time:500 or time:{min=300, max=1300} or time:[500, 1000, 2000]
+		// or if we want a specific number to shoot 5 bullets - num:5 and do not use time
+		explosion.spurt({
+			time:function(){return 400+((stageH-point.y)-400)*2}
+		});
+	};
+
+	// make the base explosion - this will get modified each time in the explode function above
+	var explosion = new zim.Emitter({
+		obj:new zim.Circle(3,frame.pink,"black",1).alp(1),
+		trace:true,
+
+		// because we are using diffent types of fireworks in bursts - no point in pooling
+		// we would just have to clearPool() before each new fireworks
+		// and there are not enought particles in each explosion to make sense to pool
+		// pooling defaults to true so we MUST turn off pooling (or clearPool() before each)
+		pool:false,
+
+		interval:20,
+		life:1400,
+		fade:true, // default
+		decayTime:500,
+		decayStart:500,
+		gravity:5,
+		minForce:2,
+		maxForce:4,
+		layers:"top", // default
+		events:false, // default
+		startPaused:true,
+		width:600,
+		height:700,
+		traceShiftY:170, // fireworks fall down so shift the cache rect
+		cache:zim.mobile(), // default
+	})
+		.centerReg(stage)
+
+	// store the explosion on the shoot Emitter
+	// so that when the shoot emitter decays, we know which explosion to emit
+	shoot.explosion = explosion;
+
+	// clone the explosion and store it on the second shoot Emitter
+	var explosion2 = explosion.clone()
+		.centerReg(stage)
+	shoot2.explosion = explosion2;
+
+	var label = new zim.Label({text:"ZIM EMITTER", color:frame.dark})
+		.addTo(stage).pos(30,30).ske(10);
+
+	var menu = new zim.Tabs({
+		tabs:["MENU","CODE","ZIM"],
+		width:400,
+		currentEnabled:true,
+		offColor:frame.dark,
+		rollColor:frame.blue
+	}).addTo(stage).pos(stageW-400, 14);
+	menu.selectedIndex = -1;
+	var urls = ["index.html","code/particle-emitter-fireworks.html","http://zimjs.com"];
+	menu.on("change", function() {zgo(urls[menu.selectedIndex]); menu.selectedIndex = -1;});
+
+
+	stage.update(); // update the stage to see any changes
+
+}); // end of ready
+</script>
+</head>
+
+<body>
+<!-- canvas with id="myCanvas" is made by zim Frame -->
+</body>
+</html>

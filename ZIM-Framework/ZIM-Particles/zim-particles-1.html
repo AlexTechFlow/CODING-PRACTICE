@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ZIM Frame - Fit Template</title>
+
+<!-- Welcome to ZIM at http://zimjs.com - Code Interactive Media Pizzazz! 	        -->
+<!-- ZIM runs on the HTML Canvas powered by JavaScript and CreateJS http://createjs.com -->
+<!-- Founded by Inventor Dan Zen - http://danzen.com - Canadian New Media Award Winner 	-->
+<!-- ZIM is free to use. You can donate to help improve ZIM at http://zimjs.com/donate 	-->
+
+
+
+<!--                   QUESTION 1 :                WHAT VERSIONS OF ZIM WORK BEST. & WHAT IS GAME.JS            -->
+ 
+<script src="https://d309knd7es5f10.cloudfront.net/createjs.min.js"></script>
+
+<script src="https://d309knd7es5f10.cloudfront.net/zim_6.4.0.js"></script> 
+
+<!-- as of ZIM 4.3.0 load createjs namespace first -->
+<script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+<script>var zon = true; // true for comments from zim code</script>
+<!-- <script src="http://d309knd7es5f10.cloudfront.net/zim_5.js"></script> -->
+<script src="http://d309knd7es5f10.cloudfront.net/game_1.0.2.js"></script>
+
+
+
+<script>
+    var zon = true; // set to false to turn off console messages from zim
+    var zns = false; // set to true to require zim namespace - eg. new zim.Frame()
+</script>
+
+
+
+<script>
+var scaling = "fit"; // this will resize to fit inside the screen dimensions
+var width = 1024;
+var height = 768;
+
+var frame = new Frame(scaling, width, height);
+frame.on("ready", function() {
+    zog("ready from ZIM Frame"); // logs in console (F12 - choose console)
+
+    var stage = frame.stage;
+    var stageW = frame.width;
+    var stageH = frame.height;
+    frame.outerColor = "#AEC9B5"; // Color around the frame 
+    frame.color = "#AEC9B5"; // Background Color 
+
+    // PUT YOUR CODE HERE  - particle emitter code, original template found here: http://zimjs.com/code/particles/code/particle-emitter-particles.html //
+
+
+    var meter = new zim.Meter(stage);
+
+    // make a sink that the particles will gravitate towards
+    // this is what causes the particles to curve back around to the middle
+    var sink = new zim.Circle(10, frame.pink).centerReg(stage).mov(0,0).alp(0);
+
+    // create a zim.Emitter for emitting particles
+    var particles = new zim.Emitter({
+
+        obj:[
+            new zim.Circle(20,null,frame.darker,2),
+            new zim.Rectangle(30,30,null,frame.darker,2),
+            new zim.Triangle(40,40,40,null,frame.darker,2)
+        ],
+
+        // adjust properties randomly for each particle
+        // the values for the properties can be any ZIM VEE value
+        // can also use this to set a property of a cloned emitter - just put the value you want
+        // for example: random:{x:300} would set the x of all the particles to 300
+        // see also horizontal and vertical parameters for random positioning...
+        random:{color:["#33AE94", frame.green, frame.pink, frame.yellow, frame.orange]},
+
+        // here is the sink that the particles will be attracted to
+        // we dynamically change the sinkForce with zim.wiggle() down below
+        sink:sink,
+        sinkForce:.9,
+
+        interval:20, // default
+        life:5000,
+        decayTime:1000, // default
+        gravity:0,
+        minForce:1,
+        maxForce:1,
+        cache:false, // default
+    });
+
+    particles.centerReg(stage).mov(0,0).scale(2);
+
+    // use zim.wiggle() to change values back and forth
+    // target, property, baseAmount, minAmount, maxAmount, minTime, maxTime, ease, integer, id
+    var force = zim.wiggle(particles, "sinkForce", .5, .2, .2, 5000, 8000);
+
+
+    // var label = new zim.Label({text:"ZIM EMITTER", color:frame.dark})
+    //    .addTo(stage).pos(30,30).ske(10); 
+
+    var menu = new zim.Tabs({
+        tabs:["MENU","CODE","ZIM"],
+        width:400,
+        currentEnabled:true,
+        rollColor:frame.blue
+    }).addTo(stage).pos(stageW-400, 14);
+    menu.selectedIndex = -1;
+    var urls = ["index.html","code/particle-emitter-particles.html","http://zimjs.com"];
+    menu.on("change", function() {zgo(urls[menu.selectedIndex]); menu.selectedIndex = -1;});
+
+
+
+
+
+    stage.update(); // this is needed to show any changes
+
+}); // end of ready
+
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+</head>
+<body>
+<!-- canvas with id="myCanvas" is made by zim Frame -->
+</body>
+</html>
