@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8" />
+<meta charset="utf-8"/>
 <title>ZIM Frame - Fit Template</title>
 
 <!-- Welcome to ZIM at http://zimjs.com - Code Interactive Media Pizzazz! 	        -->
@@ -16,9 +16,14 @@
 </script>
 <script src="https://d309knd7es5f10.cloudfront.net/zim_6.4.0.js"></script>
 <!-- use zimjs.com/code/distill for minified individual functions! -->
+<style>
+  @font-face {
+  font-family: Muller;
+  src: url(fonts/MullerLight.otf);
+  }
+</style>
 
 <script>
-
 // SCALING OPTIONS
 // scaling can have values as follows with full being the default
 // "fit"	sets canvas and stage to dimensions and scales to fit inside window size
@@ -32,7 +37,10 @@ var height = 768;
 
 // as of ZIM 5.5.0 you do not need to put zim before ZIM functions and classes
 var frame = new Frame(scaling, width, height);
+
 frame.on("ready", function() {
+
+    frame.loadAssets({font:"MullerLight", src: "fonts/MullerLight.otf"});
     zog("ready from ZIM Frame"); // logs in console (F12 - choose console)
 
     var stage = frame.stage;
@@ -94,6 +102,14 @@ frame.on("ready", function() {
 
 
 
+  var logo = new Label({
+    text:"ALEX",
+    size:100,
+    font:"MullerLight",
+    align:"center"
+  })
+    .center(stage)
+    .animate({wait:500, obj:{alpha:0}, from:true, time:500});
 
 
 
@@ -113,5 +129,6 @@ frame.on("ready", function() {
 
 <body>
 <!-- canvas with id="myCanvas" is made by zim Frame -->
+<span style="font-family:Muller; opacity:.01"></span>
 </body>
 </html>

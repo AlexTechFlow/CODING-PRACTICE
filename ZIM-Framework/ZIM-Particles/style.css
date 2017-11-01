@@ -1,0 +1,64 @@
+
+
+@font-face {
+	font-family: "Muller";
+	src: url('fonts/MullerRegular.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Muller";
+	src: url('fonts/MullerLight.otf') format('opentype');
+	font-weight: 100;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: "Muller";
+	src: url('fonts/MullerHeavy.otf') format('opentype');
+	font-weight: 900;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: "Muller";
+	src: url('fonts/MullerExtraBold.otf') format('opentype');
+	font-weight: 700;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: "Muller";
+	src: url('fonts/MullerBold.otf') format('opentype');
+	font-weight: 500;
+	font-style: normal;
+}
+
+
+
+
+body {        
+	font-family: 'Muller', sans-serif; font-weight: normal;
+}
+
+h1 {
+	font-family: 'Muller'; font-weight: 700;
+}
+
+h1.MullerBold {
+	font-family: 'Muller'; font-weight: 500;
+}
+
+.MullerLight { 
+	font-family: 'Muller'; font-weight: 100;
+
+}
+
+.MullerHeavy { 
+	font-family: 'Muller'; font-weight: 900;
+
+}
