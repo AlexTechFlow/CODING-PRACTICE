@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ZIM Frame - Fit Template</title>
+
+<script src="https://d309knd7es5f10.cloudfront.net/createjs.min.js"></script>
+<script>
+	var zon = true; // set to false to turn off console messages from zim
+	var zns = false; // set to true to require zim namespace - eg. new zim.Frame()
+</script>
+<script src="https://d309knd7es5f10.cloudfront.net/zim_6.5.0.js"></script>
+<!-- use zimjs.com/code/distill for minified individual functions! -->
+
+<script>
+var scaling = "fit"; // this will resize to fit inside the screen dimensions
+var width = 1024;
+var height = 768;
+
+var frame = new Frame(scaling, width, height);
+frame.on("ready", function() {
+    zog("ready from ZIM Frame"); // logs in console (F12 - choose console)
+
+    var stage = frame.stage;
+    var stageW = frame.width;
+    var stageH = frame.height;
+    frame.outerColor = "#444";
+    frame.color = "red";
+
+
+   //STEP 1: Load image, position it on the stage and set the size:
+
+    frame.loadAssets(["cube-1-tranasparent-bg-jpg.jpg", "cube-1-transparent-bg.png", "cube-1.png"], "assets/"); // to load more assets, add them in an array
+
+    frame.on("complete", function(){
+
+        //var logo = frame.asset("cube-1-tranasparent-bg-jpg.jpg");
+        var logo = frame.asset("cube-1-transparent-bg.png"); //using the transparent background image for this logo
+        stage.addChild(logo);
+        //logo.rot(2); rotate
+        logo.siz(200, 200);
+        logo.centerReg(stage);
+        //logo.on("click", function(){
+          //  frame.asset("add-your-sound-here.mp3"); //ADD SOUND ON CLICK OR ON MOUSEOVER!
+        //}); // this gives a strange create-js error in console????????????
+        stage.update();
+    });
+
+    
+
+// STEP 2: Animate the logo image 
+
+
+
+
+// STEP 3: Add a label and style it
+
+var company = new zim.Label({             //Label(text, size, font, color, rollColor, shadowColor, shadowBlur, align, valign, lineWidth, lineHeight, fontOptions, backing, outlineColor, outlineWidth)
+    text:"TORONTO DIGITAL Inc.",
+    //size,
+    font: "Arial",
+    color: "white",
+    fontOptions: "bold"
+
+});
+
+company.addTo(stage).pos(330, 520);
+
+
+
+   // "InterCom Inc.", 20, "white");
+
+
+
+
+    stage.update(); // this is needed to show any changes
+
+}); // end of ready
+
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+</head>
+
+<body>
+<!-- canvas with id="myCanvas" is made by zim Frame -->
+</body>
+</html>
