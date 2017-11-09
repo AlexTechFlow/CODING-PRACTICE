@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8" />
 <title>ZIM Frame - Fit Template</title>
-
 <script src="https://d309knd7es5f10.cloudfront.net/createjs.min.js"></script>
 <script>
 	var zon = true; // set to false to turn off console messages from zim
@@ -11,7 +10,6 @@
 </script>
 <script src="https://d309knd7es5f10.cloudfront.net/zim_6.5.0.js"></script>
 <!-- use zimjs.com/code/distill for minified individual functions! -->
-
 <script>
 var scaling = "fit"; // this will resize to fit inside the screen dimensions
 var width = 1024;
@@ -28,61 +26,81 @@ frame.on("ready", function() {
     frame.color = "red";
 
 
-   //STEP 1: Load image, position it on the stage and set the size:
+
+// STEP 0 - PREP: Load image, position it on the stage and set the size:
 
     frame.loadAssets(["cube-1-tranasparent-bg-jpg.jpg", "cube-1-transparent-bg.png", "cube-1.png"], "assets/"); // to load more assets, add them in an array
-
     frame.on("complete", function(){
 
-        //var logo = frame.asset("cube-1-tranasparent-bg-jpg.jpg");
+
+
+// STEP 1: Create a company name label -  as a function to use later
+
+        function companyName(){
+
+            var company = new zim.Label({ 
+                    //Label(text, size, font, color, rollColor, shadowColor, shadowBlur, align, valign, lineWidth, lineHeight, fontOptions, backing, outlineColor, outlineWidth)
+                    text:"TORONTO DIGITAL Inc.",
+                    size: 45,
+                    font: "Arial",
+                    color: "white",
+                    fontOptions: "bold"});
+
+            company.addTo(stage).pos(330, 520); //position label text
+
+            company.move(200, 220, 1000, "linearInOut"); //move label text 
+
+            stage.update();
+
+        }; //end of companyName function
+
+
+
+// STEP 2: Load logo image 
+
         var logo = frame.asset("cube-1-transparent-bg.png"); //using the transparent background image for this logo
         stage.addChild(logo);
         //logo.rot(2); rotate
         logo.siz(200, 200);
         logo.centerReg(stage);
+        
+
         //logo.on("click", function(){
           //  frame.asset("add-your-sound-here.mp3"); //ADD SOUND ON CLICK OR ON MOUSEOVER!
         //}); // this gives a strange create-js error in console????????????
-        stage.update();
-    });
+
+
+        //obj.move(x, y, time, ease, call, params, wait, waitedCall, waitedParams, loop, loopCount, loopWait, loopCall, loopParams, loopWaitCall, loopWaitParams, rewind, rewindWait, rewindCall, rewindParams, rewindWaitCall, rewindWaitParams, sequence, sequenceCall, sequenceParams, sequenceReverse, ticker, props, protect, override, from, set, id)
+        //ease - |ZIM VEE| (default "quadInOut") see CreateJS easing ("bounceOut", "elasticIn", "backInOut", "linearInOut", etc)
+        logo.move(500, 420, 1000, "linearInOut", companyName()); //companyName function called
+
+
+    }); //end of frame.on("complete", function...)
 
     
 
-// STEP 2: Animate the logo image 
+
+
+// STEP 3: ANIMATION ZIM ---- add more animated objects???? maybe add parallax with more images // try adding a custom font //
+
+// obj.animate(obj, time, ease, call, params, wait, waitedCall, waitedParams, loop, loopCount, loopWait, loopCall, loopParams, loopWaitCall, loopWaitParams, rewind, rewindWait, rewindCall, rewindParams, rewindWaitCall, rewindWaitParams, sequence, sequenceCall, sequenceParams, sequenceReverse, ticker, props, css, protect, override, from, set, id)
+
+// ????????????????????????????????????????????????????????????????????????????????????????????????????????????? //
 
 
 
 
-// STEP 3: Add a label and style it
-
-var company = new zim.Label({             //Label(text, size, font, color, rollColor, shadowColor, shadowBlur, align, valign, lineWidth, lineHeight, fontOptions, backing, outlineColor, outlineWidth)
-    text:"TORONTO DIGITAL Inc.",
-    //size,
-    font: "Arial",
-    color: "white",
-    fontOptions: "bold"
-
-});
-
-company.addTo(stage).pos(330, 520);
-
-
-
-   // "InterCom Inc.", 20, "white");
 
 
 
 
-    stage.update(); // this is needed to show any changes
+     stage.update(); // this is needed to show any changes
 
 }); // end of ready
 
 </script>
-
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
 </head>
-
 <body>
 <!-- canvas with id="myCanvas" is made by zim Frame -->
 </body>
